@@ -1,0 +1,105 @@
+İŞ KURALLARI
+Kişiler
+Her kişi benzersiz bir Kişi_ID ile tanımlanır.
+Kişilerin Ad, Soyad, Telefon ve Kişi_Tipi bilgileri kaydedilir.
+Kişi tipi ya müşteri ya da çalışan olarak tanımlanacak.
+Müşteriler
+Müşteriler, Kişi_ID üzerinden tanımlanır (FK - Kişiler).
+Her müşterinin kayıt tarihi Kayıt_Tarihi alanında tutulur.
+Bir kişi müşteri olmayabilir veya bir müşteri olarak tanımlanabilir.
+Bir müşteri aynı anda bir müşteri olamıyor.
+Bir müşteri birden fazla randevu alabilir.
+Bir müşteri birden fazla satış yapabilir.
+Bir müşteri birden fazla ödeme yapabilir.
+Bir müşterinin adına birden fazla fatura yazılabilir.
+
+Çalışanlar
+Çalışanlar Kişi_ID üzerinden tanımlanır (FK - Kişiler).
+Her çalışanın Pozisyon ve Maaş bilgisi kaydedilir.
+Çalışanların çalışma süreleri Çalışma_Saati_ID üzerinden izlenir.
+Çalışma Saatleri
+Her çalışma kaydı benzersiz bir Çalışma_Saati_ID ile tanımlanır.
+Çalışma saatlerinin Tarih, Giriş_Saati, Çıkış_Saati ve Toplam_Saat bilgileri tutulur.
+Bir çalışanın bir çalışma saati kaydı olur.
+Bir çalışan birden fazla Ekipman kullanabilir.
+Bir çalışan bir günde birden fazla randevuya bakabilir.
+Bir çalışan bir müşteriye birden fazla hizmet verebilir.
+
+Randevular
+Her randevu benzersiz bir Randevu_ID ile tanımlanır.
+ID Randevuda hem müşteri hem de çalışan ID si bulunacaktır_Kişi
+Randevu, bir Müşteri_ID (FK - Müşteriler) ve bir Çalışan_ID (FK - Çalışanlar) ile ilişkilidir.
+Randevuların Tarih, Saat ve Durum bilgileri kaydedilir.
+Bir randevuda birden fazla hizmet atanabilir.
+Bir randevuda bir çalışan bakabilir.
+Bir randevuda bir müşteriye bakılır.
+
+Hizmetler
+Her hizmet benzersiz bir Hizmet_ID ile tanımlanır.
+Hizmetler, Ad, Fiyat ve Kampanya_ID (FK) bilgilerini içerir.
+Bir hizmet, sadece bir kampanya kullanabilir.
+Çalışanların verdiği hizmetler Kişi_ID üzerinden izlenir.
+Bir hizmet bir çalışan tarafından verilir.
+Bir hizmet birden fazla randevuda talep edilebilir.
+
+Kampanyalar
+Kampanyalar benzersiz bir Kampanya_ID ile tanımlanır.
+Her kampanyanın Adı, İndirim_Oranı, Başlangıç_Tarihi ve Bitiş_Tarihi bilgileri tutulur.
+Bir kampanya, bir veya birden fazla hizmetle ilişkili olabilir.
+
+Ürünler
+Ürünler benzersiz bir Ürün_ID ile tanımlanır.
+Her ürünün Adı, Fiyatı, Stok miktarı ve Kategori bilgileri kaydedilir.
+Ürünler stok hareketleri ile takip edilir.
+Bir ürünün veya birden fazla stok hareketinde bulunabilir.
+Bir ürünün bir satış işlemine bağlı olacak.
+
+Stok Hareketleri
+Stok hareketleri benzersiz bir Stok_Hareket_ID ile tanımlanır.
+Her stok hareketi bir Ürün_ID (FK - Ürünler) ile ilişkilidir.
+Stok hareketlerinde Tarih, İşlem_Türü (Giriş/Çıkış) ve Adet bilgisi tutulur.
+Her stok haerketi bir ürüne bağlıdır.
+
+Satışlar
+Satışlar benzersiz bir Satış_ID ile tanımlanır.
+Her satış, bir Kişi_ID (FK - Kişiler) ve Ürün_ID ile ilişkilidir.
+Satışlarda Adet, Tarih ve Toplam_Tutar bilgileri tutulur.
+Bir satış bir veya birden fazla ürün bilgisi taşıyabilir.
+Bir veya birden fazla satış işlemi ancak bir müşteriye bağlı olacak.
+Bir veya birden fazla bir satış işlemi bir faturada yazılacaktır.
+
+Faturalar
+Faturalar benzersiz bir Fatura_ID ile tanımlanır.
+Faturalar, Aylık_Rapor_ID (FK), Ürün_ID (FK - Ürünler) ve Kişi_ID (FK - Kişiler) ile ilişkilidir.
+Her faturada Tarih ve Toplam_Tutar bilgisi tutulur.
+Bir veya birden fazla fatura bir müşteri adında yazılacaktır.
+Bir faturada bir veya birden fazla bir satış bilgileri taşıyabilir.
+Bir faturada bir veya birden fazla ödeme bilgisi taşıyabilir.
+Bir veya birden fazla bir faturanın bilgileri aylık raporunda saklanır.
+
+
+
+Ödemeler
+Ödemeler benzersiz bir Ödeme_ID ile tanımlanır.
+Ödemeler, Kişi_ID (FK - Kişiler) ve Fatura_ID (FK - Faturalar) ile ilişkilidir.
+Her ödeme için Tutar ve Ödeme_Türü bilgisi kaydedilir.
+Bir veya birden fazla ödeme bilgisi bir müşteriye ait olacak.
+Bir veya birden fazla ödeme işlemi bir faturada saklanacak.
+
+Aylık Raporlar
+Aylık raporlar benzersiz bir Aylık_Rapor_ID ile tanımlanır.
+Her raporda Yıl, Toplam_Gelir, Toplam_Gider ve Toplam_Kar bilgileri tutulur.
+Aylık raporlar yıllık raporlarla ilişkilidir.
+Bir aylık raporu bir vrya birden fazla fatura bilgisi taşıyabilir.
+Bir veya birden fazla aylık raporu bir yıllık raporunda saklanacak.
+
+Yıllık Raporlar
+Yıllık raporlar benzersiz bir Yıllık_Rapor_ID ile tanımlanır.
+Yıllık raporlar, Yıl, Toplam_Gelir, Toplam_Gider ve Toplam_Kar bilgilerini içerir.
+Bir yıllık raporda bir veya birden fazla aylık raporu bilgisi taşıyabilir.
+
+Ekipmanlar
+Ekipmanlar benzersiz bir Ekipman_ID ile tanımlanır.
+Her ekipmanın Adı, Durumu, Tarihi ve bir çalışanla ilişkisi Kişi_ID (FK - Çalışanlar) üzerinden tutulur.
+Bir çalışan veya birden birden fazla ekipman kullanabilir.
+
